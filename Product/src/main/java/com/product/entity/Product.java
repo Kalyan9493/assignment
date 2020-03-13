@@ -1,5 +1,6 @@
 package com.product.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,25 +13,31 @@ public class Product{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long productid;
+	@Column(name = "pid")
+	private Long pid;
 	private String name;
 	private String catagory;
 	private Double  price;
-	public Product(String name, String catagory, Double price) {
+	private String os;
+	private Integer memory;
+	private Integer ram;
+
+	
+	public Product(String name, String catagory, Double price, String os, Integer memory, Integer ram) {
 		super();
 		this.name = name;
 		this.catagory = catagory;
 		this.price = price;
+		this.os = os;
+		this.memory = memory;
+		this.ram = ram;
 	}
 	public Product() {
-		super();
-		// TODO Auto-generated constructor stub
+	
 	}
-	public Long getProductid() {
-		return productid;
-	}
-	public void setProductid(Long productid) {
-		this.productid = productid;
+	
+	public Long getPid() {
+		return pid;
 	}
 	public String getName() {
 		return name;
@@ -50,12 +57,28 @@ public class Product{
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	public String getOs() {
+		return os;
+	}
+	public void setOs(String os) {
+		this.os = os;
+	}
+	public Integer getMemory() {
+		return memory;
+	}
+	public void setMemory(Integer memory) {
+		this.memory = memory;
+	}
+	public Integer getRam() {
+		return ram;
+	}
+	public void setRam(Integer ram) {
+		this.ram = ram;
+	}
 	@Override
 	public String toString() {
-		return "Product [productid=" + productid + ", name=" + name + ", catagory=" + catagory + ", price=" + price
-				+ "]";
+		return "Product [productid=" + pid + ", name=" + name + ", catagory=" + catagory + ", price=" + price
+				+ ", os=" + os + ", memory=" + memory + ", ram=" + ram + "]";
 	}
-
 	
-
 }

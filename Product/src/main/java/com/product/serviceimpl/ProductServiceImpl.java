@@ -1,7 +1,6 @@
 package com.product.serviceimpl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,26 +10,35 @@ import com.product.repository.ProductRepository;
 import com.product.service.ProductService;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+	@Autowired
+	private ProductRepository productRepository;
 
 	@Override
-	public void saveProduct(Product product) {
-		productRepository.save(product);
-		
+	public Product saveProduct(Product product) {
+		return productRepository.save(product);
+
 	}
 
 	@Override
-	public Optional<Product> getProduct(Long pid) {
-		
-		return productRepository.findById(pid);
+	public Product getProduct(Long pid) {
+		return productRepository.findById(pid).orElse(new Product());
+	}
+
+	public List<Product> listOfProducts(String os, String catagory) {
+		if (os != "" && catagory != "") {
+			return productRepository.findByCatagoryAndOs(os, catagory);
+		} else if (os != "" || catagory != "") {
+			return productRepository.findByCatagoryOrOs(os, catagory);
+		} else {
+			return productRepository.findAll();
+		}
 	}
 
 	@Override
-	public List<Product> listOfProducts() {
-		
-		return productRepository.findAll();
+	public void deleteProduct(Long pid) {
+
+		productRepository.deleteById(pid);
 	}
 }
